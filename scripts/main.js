@@ -1,44 +1,24 @@
 ;(function () {
 	'use strict';
 
-	var firstNumber = 25; // 25 is an example. Enter any number greater than 1 here.
-	var secondNumber = 356; // 356 is an example. Enter any number greater than firstNumber here.
-
-	function primeNumbers (firstNumber, secondNumber) {
-		if (typeof(firstNumber) != "number" ||
-			typeof(secondNumber) != "number") {
-			alert("Only numbers must be entered");
-			return;
+	function map (fun, array) {
+		if (typeof(fun) != 'function') {
+			console.log('First argument must be a function');
 		};
 
-		if (firstNumber < 1 || secondNumber < 1) {
-			alert("Numbers you enter must be greater than 1")
-			return;
+		if (!Array.isArray(array)) {
+			console.log('Second argument must be a array');
 		};
 
-		if (firstNumber > secondNumber || firstNumber == secondNumber) {
-			alert('Second number must be greater than first number')
-			return;
+		var tmpArray = [];
+		for (var i = 0; i < array.length; i++) {
+			var item = fun(array[i]);
+			tmpArray.push(item);
 		};
-
-		var primeNumbers = [];
-		var numberOfDivisors;
-		for (var counter = firstNumber; counter <= secondNumber; counter++) {
-			numberOfDivisors = 0;
-
-			for (var divisor = 1; divisor <= counter; divisor++) {
-				if (counter % divisor == 0) {
-					numberOfDivisors++;
-				}
-			}
-
-			if (numberOfDivisors == 2) {
-				primeNumbers.push(counter);
-			}
-		}
-
-		return primeNumbers;
+		return tmpArray;
 	}
 
-	console.log(primeNumbers(firstNumber, secondNumber));
+	function square(x) { return x * x; } // возведение в квадрат
+	console.log(map(square, [1, 2, 3, 4]));
+	console.log(map(square, []));
 })();
